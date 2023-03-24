@@ -42,24 +42,24 @@ def __beforeStart():
 
 def __showVersion():
     from setting import VERSION
-    log.info("ProxyPool Version: %s" % VERSION)
+    log.info(f"ProxyPool Version: {VERSION}")
 
 
 def __showConfigure():
     conf = ConfigHandler()
-    log.info("ProxyPool configure HOST: %s" % conf.serverHost)
-    log.info("ProxyPool configure PORT: %s" % conf.serverPort)
-    log.info("ProxyPool configure PROXY_FETCHER: %s" % conf.fetchers)
+    log.info(f"ProxyPool configure HOST: {conf.serverHost}")
+    log.info(f"ProxyPool configure PORT: {conf.serverPort}")
+    log.info(f"ProxyPool configure PROXY_FETCHER: {conf.fetchers}")
 
 
 def __checkDBConfig():
     conf = ConfigHandler()
     db = DbClient(conf.dbConn)
     log.info("============ DATABASE CONFIGURE ================")
-    log.info("DB_TYPE: %s" % db.db_type)
-    log.info("DB_HOST: %s" % db.db_host)
-    log.info("DB_PORT: %s" % db.db_port)
-    log.info("DB_NAME: %s" % db.db_name)
-    log.info("DB_USER: %s" % db.db_user)
+    log.info(f"DB_TYPE: {db.db_type}")
+    log.info(f"DB_HOST: {db.db_host}")
+    log.info(f"DB_PORT: {db.db_port}")
+    log.info(f"DB_NAME: {db.db_name}")
+    log.info(f"DB_USER: {db.db_user}")
     log.info("=================================================")
     return db.test()

@@ -41,10 +41,7 @@ class ProxyHandler(object):
         return and delete a useful proxy
         :return:
         """
-        proxy = self.db.pop(https)
-        if proxy:
-            return Proxy.createFromJson(proxy)
-        return None
+        return Proxy.createFromJson(proxy) if (proxy := self.db.pop(https)) else None
 
     def put(self, proxy):
         """

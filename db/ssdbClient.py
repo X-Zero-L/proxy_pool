@@ -67,8 +67,7 @@ class SsdbClient(object):
         :param proxy_obj: Proxy obj
         :return:
         """
-        result = self.__conn.hset(self.name, proxy_obj.proxy, proxy_obj.to_json)
-        return result
+        return self.__conn.hset(self.name, proxy_obj.proxy, proxy_obj.to_json)
 
     def pop(self, https):
         """
@@ -78,7 +77,7 @@ class SsdbClient(object):
         proxy = self.get(https)
         if proxy:
             self.__conn.hdel(self.name, json.loads(proxy).get("proxy", ""))
-        return proxy if proxy else None
+        return proxy or None
 
     def delete(self, proxy_str):
         """
@@ -143,11 +142,8 @@ class SsdbClient(object):
         try:
             self.getCount()
         except TimeoutError as e:
-            log.error('ssdb connection time out: %s' % str(e), exc_info=True)
+            log.error(f'ssdb connection time out: {str(e)}', exc_info=True)
             return e
-        except ConnectionError as e:
-            log.error('ssdb connection error: %s' % str(e), exc_info=True)
-            return e
-        except ResponseError as e:
-            log.error('ssdb connection error: %s' % str(e), exc_info=True)
+        except (ConnectionError, ResponseError) as e:
+            log.error(f'ssdb connection error: {str(e)}', exc_info=True)
             return e

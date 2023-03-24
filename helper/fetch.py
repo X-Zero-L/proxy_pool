@@ -36,7 +36,7 @@ class _ThreadFetcher(Thread):
         self.log.info("ProxyFetch - {func}: start".format(func=self.fetch_source))
         try:
             for proxy in self.fetcher():
-                self.log.info('ProxyFetch - %s: %s ok' % (self.fetch_source, proxy.ljust(23)))
+                self.log.info(f'ProxyFetch - {self.fetch_source}: {proxy.ljust(23)} ok')
                 proxy = proxy.strip()
                 if proxy in self.proxy_dict:
                     self.proxy_dict[proxy].add_source(self.fetch_source)
@@ -60,8 +60,8 @@ class Fetcher(object):
         fetch proxy with proxyFetcher
         :return:
         """
-        proxy_dict = dict()
-        thread_list = list()
+        proxy_dict = {}
+        thread_list = []
         self.log.info("ProxyFetch : start")
 
         for fetch_source in self.conf.fetchers:

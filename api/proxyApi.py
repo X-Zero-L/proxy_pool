@@ -126,10 +126,10 @@ def runFlask():
                 return self.application
 
         _options = {
-            'bind': '%s:%s' % (conf.serverHost, conf.serverPort),
+            'bind': f'{conf.serverHost}:{conf.serverPort}',
             'workers': 4,
-            'accesslog': '-',  # log to stdout
-            'access_log_format': '%(h)s %(l)s %(t)s "%(r)s" %(s)s "%(a)s"'
+            'accesslog': '-',
+            'access_log_format': '%(h)s %(l)s %(t)s "%(r)s" %(s)s "%(a)s"',
         }
         StandaloneApplication(app, _options).run()
 

@@ -52,7 +52,7 @@ def formatValidator(proxy):
     """检查代理格式"""
     verify_regex = r"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}:\d{1,5}"
     _proxy = findall(verify_regex, proxy)
-    return True if len(_proxy) == 1 and _proxy[0] == proxy else False
+    return len(_proxy) == 1 and _proxy[0] == proxy
 
 
 @ProxyValidator.addHttpValidator
@@ -63,7 +63,7 @@ def httpTimeOutValidator(proxy):
 
     try:
         r = head(conf.httpUrl, headers=HEADER, proxies=proxies, timeout=conf.verifyTimeout)
-        return True if r.status_code == 200 else False
+        return r.status_code == 200
     except Exception as e:
         return False
 
@@ -75,7 +75,7 @@ def httpsTimeOutValidator(proxy):
     proxies = {"http": "http://{proxy}".format(proxy=proxy), "https": "https://{proxy}".format(proxy=proxy)}
     try:
         r = head(conf.httpsUrl, headers=HEADER, proxies=proxies, timeout=conf.verifyTimeout, verify=False)
-        return True if r.status_code == 200 else False
+        return r.status_code == 200
     except Exception as e:
         return False
 
